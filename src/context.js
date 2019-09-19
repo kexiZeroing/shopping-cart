@@ -14,6 +14,24 @@ class ProductProvider extends Component {
     detailProduct: detailProduct
   }
 
+  // get data here
+  componentDidMount() {
+    this.setProducts()
+  }
+  
+  // make a copy and add to the list
+  setProducts = () => {
+    let products = []
+    storeProducts.forEach(item => {
+      const singleItem = {...item}
+      products = [...products, singleItem]
+    })
+
+    this.setState(() => {
+      return { products }
+    })
+  }
+
   handleDetail = id => {
 
   }
