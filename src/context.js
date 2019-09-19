@@ -8,9 +8,27 @@ const ProductContext = React.createContext();
 // Consumer -> grab information in any child (don't need to pass the value down)
 
 class ProductProvider extends Component {
+  state = {
+    // `products: storeProducts` has reference issue (pass object). `storeProducts` will also be changed when call setState
+    products: [],
+    detailProduct: detailProduct
+  }
+
+  handleDetail = id => {
+
+  }
+
+  addToCart = id => {
+
+  }
+  
   render() {
     return (
-      <ProductContext.Provider value="hello">
+      <ProductContext.Provider value={{
+        ...this.state,
+        handleDetail: this.handleDetail,
+        addToCart: this.addToCart
+      }}>
         {this.props.children}
       </ProductContext.Provider>
     )
