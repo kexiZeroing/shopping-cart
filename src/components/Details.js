@@ -32,7 +32,7 @@ export default class Details extends Component {
                 <div className="col-10 mx-auto col-md-6 my-3">
                   <img src={img} className="img-fluid" alt="" />
                 </div>
-                {/* text */}
+                {/* info (include buttons) */}
                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
                   <h1>model : {title}</h1>
                   <h4 className="text-title text-uppercase text-muted mt-3 mb-2">
@@ -48,6 +48,22 @@ export default class Details extends Component {
                     some info about product :
                   </p>
                   <p className="text-muted lead">{info}</p>
+                  {/* buttons */}
+                  <div>
+                    <Link to="/">
+                      <ButtonContainer>back to products</ButtonContainer>
+                    </Link>
+                    {/* pass the prop `cart` to the styled component */}
+                    <ButtonContainer
+                      cart
+                      disabled={inCart ? true : false}
+                      onClick={() => {
+                        value.addToCart(id);
+                      }}
+                    >
+                      {inCart ? "in cart" : "add to cart"}
+                    </ButtonContainer>
+                  </div>
                 </div>
               </div>
             </div>
