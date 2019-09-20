@@ -13,7 +13,11 @@ class ProductProvider extends Component {
     products: [],
     detailProduct: {},
     cart: [],
-    modalOpen: false
+    modalOpen: false,
+    // three types of money in cart page
+    cartSubTotal: 0,
+    cartTax: 0,
+    cartTotal: 0
   }
 
   // get data here
@@ -52,12 +56,13 @@ class ProductProvider extends Component {
     product.count = 1
     product.total = product.price
 
+    // setState has a callback function run after state change
     this.setState(() => {
       return {
         products: [...tempProducts],
         cart: [...this.state.cart, product]
       }
-    })
+    }, this.addTotals)
   }
 
   openModal = id => {
@@ -72,6 +77,48 @@ class ProductProvider extends Component {
       return { modalOpen: false }
     })
   }
+
+  increment = id => {
+
+  }
+
+  decrement = id => {
+
+  }
+
+  removeItem = id => {
+
+  }
+
+  // reset cart, product, total price
+  clearCart = () => {
+    this.setState(
+      () => {
+        return { cart: [] }
+      }, () => {
+        this.setProducts()
+        this.addTotals()
+      }
+    )
+  }
+
+  // run in the callback of addToCart
+  addTotals = () => {
+    const subTotal = this.state.cart.reduce((acc, cur) => acc + cur.total, 0)
+    // `toFixed` returns a number in the string representation
+    const tax = parseFloat((subTotal * 0.1).toFixed(2))
+    const total = subTotal + tax;
+
+    this.setState(
+      () => {
+        return {
+          cartSubTotal: subTotal,
+          cartTax: tax,
+          cartTotal: total
+        }
+      }
+    )
+  }
   
   render() {
     return (
@@ -80,7 +127,11 @@ class ProductProvider extends Component {
         handleDetail: this.handleDetail,
         addToCart: this.addToCart,
         openModal: this.openModal,
-        closeModal: this.closeModal
+        closeModal: this.closeModal,
+        increment: this.increment,
+        decrement: this.decrement,
+        removeItem: this.removeItem,
+        clearCart: this.clearCart
       }}>
         {this.props.children}
       </ProductContext.Provider>

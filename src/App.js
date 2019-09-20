@@ -5,6 +5,11 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import Details from "./components/Details";
+/* Cart is the folder
+  option 1: import the specific file "./components/Cart/Cart.js";
+  option 2: could have an index.js in Cart folder (Webpack detects)
+  option 3: have an package.json in Cart folder to set 'main' file
+*/
 import Cart from "./components/Cart";
 import Modal from "./components/Modal";
 import Default from "./components/Default";
