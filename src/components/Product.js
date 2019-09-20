@@ -30,7 +30,8 @@ export default class Product extends Component {
                   className="cart-btn"
                   disabled={inCart ? true : false}
                   onClick={() => {
-                    value.addToCart(id);
+                    value.addToCart(id)
+                    value.openModal(id)
                   }}
                 >
                   {inCart ? (
@@ -112,7 +113,7 @@ const ProductWrapper = styled.div`
     font-size: 1.4rem;
     border-radius: 0.5rem 0 0 0;
     transform: translate(100%, 100%);
-    transition: all 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
   .img-container:hover .cart-btn {
     transform: translate(0, 0);

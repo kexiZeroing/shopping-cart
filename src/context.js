@@ -11,7 +11,9 @@ class ProductProvider extends Component {
   state = {
     // `products: storeProducts` has reference issue (pass object). `storeProducts` will also be changed when call setState
     products: [],
-    detailProduct: {}
+    detailProduct: {},
+    cart: [],
+    modalOpen: false
   }
 
   // get data here
@@ -44,7 +46,31 @@ class ProductProvider extends Component {
   }
 
   addToCart = id => {
+    let tempProducts = [...this.state.products];
+    const product = tempProducts.find(item => item.id === id)    
+    product.inCart = true
+    product.count = 1
+    product.total = product.price
 
+    this.setState(() => {
+      return {
+        products: [...tempProducts],
+        cart: [...this.state.cart, product]
+      }
+    })
+  }
+
+  openModal = id => {
+    const product = this.getItem(id)
+    this.setState(() => {
+      return { modalProduct: product, modalOpen: true }
+    })
+  }
+
+  closeModal = () => {
+    this.setState(() => {
+      return { modalOpen: false }
+    })
   }
   
   render() {
@@ -52,7 +78,9 @@ class ProductProvider extends Component {
       <ProductContext.Provider value={{
         ...this.state,
         handleDetail: this.handleDetail,
-        addToCart: this.addToCart
+        addToCart: this.addToCart,
+        openModal: this.openModal,
+        closeModal: this.closeModal
       }}>
         {this.props.children}
       </ProductContext.Provider>
